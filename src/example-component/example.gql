@@ -1,0 +1,46 @@
+query allDevices {
+    allDevices {
+        id
+        displayName
+        deviceName
+        channel
+        kind
+        isReportingVoltage
+    }
+}
+
+mutation addDevice(
+    $channel: Int!
+    $deviceName: String!
+    $displayName: String!
+    $isReportingVoltage: Boolean!
+    $kind: DeviceKind!
+) {
+    addDevice(
+        device: {
+            channel: $channel
+            deviceName: $deviceName
+            displayName: $displayName
+            isReportingVoltage: $isReportingVoltage
+            kind: $kind
+        }
+    ) {
+        id
+    }
+}
+
+mutation shutterPosition($id: UUID!, $position: Int!) {
+    shutterDevice(id: $id, position: $position)
+}
+
+mutation shutterRefresh($id: UUID!) {
+    shutterDeviceRefresh(id: $id)
+}
+
+subscription shutterDeviceStatus($id: UUID!) {
+    shutterDeviceStatus(id: $id) {
+        position
+        direction
+        target
+    }
+}

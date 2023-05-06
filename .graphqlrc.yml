@@ -1,0 +1,21 @@
+schema: http://172.16.0.200/gql
+documents: "./src/**/*.{graphql,gql}"
+generates:
+  ./src/generated/gql.ts:
+    config:
+      withHooks: true
+      skipTypename: true
+      defaultScalarType: unknown
+      scalars:
+        LocalDateTime: string
+        UUID: string
+
+    plugins:
+      - add:
+          content: "/* eslint-disable */"
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+extensions:
+  languageService:
+    cacheSchemaFileForLookup: true
